@@ -1,3 +1,16 @@
+"""
+generateLink():
+Generate link to site to be scraped given the site, departure location, arrival location, departure location and departure date
+
+TODO:
+Kayak
+Trivago
+TripAdvisor
+Travelocity
+
+scrape():
+get data from site given site specification and url link
+"""
 def generateLink(site, departFrom, arriveAt, departureDate):
     """
     params:
@@ -13,6 +26,6 @@ def generateLink(site, departFrom, arriveAt, departureDate):
 
     pass
 
-def scrape(site):
+def scrape(site, url):
     pass
 
