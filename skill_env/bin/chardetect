@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/wajames/Documents/HACKPRINCETON/TravelBud/skill_env/bin/python3
+=======
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7
+>>>>>>> 6deefd84032fcdcdaa4168f3b4ca362b58685067
 
 # -*- coding: utf-8 -*-
 import re
