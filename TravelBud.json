@@ -34,29 +34,23 @@
                     ]
                 },
                 {
-                    "name": "departLocationIntent",
+                    "name": "LocationIntent",
                     "slots": [
                         {
                             "name": "departLocation",
                             "type": "AMAZON.Location"
-                        }
+                        },
+                      {
+                        "name": "arriveLocation",
+                        "type": "AMAZON.Location"
+
+                      }
                     ],
                     "samples": [
                         "The city I'm traveling from is {departLocation}"
                     ]
                 }
-              {
-                    "name": "arriveLocationIntent",
-                    "slots": [
-                        {
-                            "name": "arriveLocation",
-                            "type": "AMAZON.Location"
-                        }
-                    ],
-                    "samples": [
-                        "The city I'm traveling from is {arriveLocationIntent}"
-                    ]
-                }
+
             ],
             "types": []
         }

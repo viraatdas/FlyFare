@@ -83,7 +83,7 @@ def whats_my_color_handler(handler_input):
     return handler_input.response_builder.response
 
 
-@sb.request_handler(can_handle_func=is_intent_name("departLocationIntent"))
+@sb.request_handler(can_handle_func=is_intent_name("LocationIntent"))
 def from_location_handler(handler_input):
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
@@ -92,11 +92,16 @@ def from_location_handler(handler_input):
     # type: (HandlerInput) -> Response
     slots = handler_input.request_envelope.request.intent.slots
 
+
     if from_location_slot in slots:
         fromLocation = slots[from_location_slot].value
         handler_input.attributes_manager.session_attributes[
             color_slot_key] = fromLocation
-        speech = ("The location you are traveling from is {}. Where will you be going to?".format(fromLocation))
+        arriveLocation = slots[from_location_slot].value
+        handler_input.attributes_manager.session_attributes[
+            color_slot_key] = arriveLocation
+        speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
+                  .format(fromLocation, arriveLocation ))
         reprompt = ("Where will you be traveling to?")
     else:
         speech = "I'm not sure what your departing city is. Try again."
@@ -146,12 +151,33 @@ def from_location_handler(handler_input):
         handler_input.attributes_manager.session_attributes[
             color_slot_key] = departDate
         speech = ("The date you will traveling to is {}. When will you be arriving".format(departDate))
-        reprompt = ("When will you be traveling?")
+        reprompt = ("What date will you be traveling?")
     else:
-        speech = "I'm not sure what your arrival city is. Try again."
-        reprompt = ("I'm not sure what your arriving city is. "
-                    "You can tell me your departing and arriving city by saying, "
-                    "I'm traveling from Chicago to Miami")
+        speech = "I'm not sure what your departing date is. Try again."
+        reprompt = ("What date will you be traveling?")
+
+    handler_input.response_builder.speak(speech).ask(reprompt)
+    return handler_input.response_builder.response
+
+
+@sb.request_handler(can_handle_func=is_intent_name("arrivalDateIntent"))
+def from_location_handler(handler_input):
+    """Check if color is provided in slot values. If provided, then
+    set your favorite color from slot value into session attributes.
+    If not, then it asks user to provide the color.
+    """
+    # type: (HandlerInput) -> Response
+    slots = handler_input.request_envelope.request.intent.slots
+
+    if from_location_slot in slots:
+        arrivalDate = slots[from_location_slot].value
+        handler_input.attributes_manager.session_attributes[
+            color_slot_key] = arrivalDate
+        speech = ("The date you will arriving is {}.".format(arrivalDate))
+        reprompt = ("What date will you be arriving?")
+    else:
+        speech = "I'm not sure what your arriving date is. Try again."
+        reprompt = ("What date will you be arriving?")
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
