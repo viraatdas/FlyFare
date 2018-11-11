@@ -76,7 +76,8 @@ def specifycityBIntentHandler(handler_input):
         handler_input.attributes_manager.session_attributes[cityB_Key] = cityB
     
     if cityA_Key in handler_input.attributes_manager.session_attributes:
-
+        pass
+        
     if cityB_Key in handler_input.attributes_manager.session_attributes:
         TRAVEL_DATA["cityB"] = cityB
         speech = "Great!, you want to go to {}!\nI don't think you told me where you're departing from.".format:(handler_input.attributes_manager.session_attributes[
