@@ -19,9 +19,9 @@ from ask_sdk_core.dispatch_components import (
 skill_name = "Travel Bud"
 help_text = ("Please tell me the city you are departing from and arriving to")
 
-location_slot_key = "LOCATION"
-from_location_slot = "fromLocation"
-to_location_slot = "toLocation"
+cityB_Key = "LOCATION"
+cityAslot = "cityA"
+cityBslot = "cityB"
 
 from_date_slot = "fromDate"
 to_date_slot = "toDate"
@@ -45,35 +45,43 @@ def launch_request_handler(handler_input):
     return handler_input.response_builder.response
 
 # FIXME:
-# Handle specifyToLocation
-@sb.request_handler(can_handle_func=is_intent_name("specifyToLocationIntent"))
-def specifyToLocationIntentHandler(handler_input):
+# Handle specifycityB
+@sb.request_handler(can_handle_func=is_intent_name("specifyCityBIntent"))
+def specifycityBIntentHandler(handler_input):
     # slots = handler_input.request_envelope.request.intent.slots[0]
-    if toLocationKey in handler_input.attributes_manager.session_attributes:
-        TRAVEL_DATA["toLocation"] = handler_input.attributes_manager.session_attributes[
-            toLocationKey]
-        speech = "Your favorite color is {}. Goodbye!!".format(fav_color)
-        handler_input.response_builder.set_should_end_session(True)
+    cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
+    cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
+
+    if cityB != None:
+        handler_input.attributes_manager.session_attributes[cityB_Key] = cityB
+    
+    if cityA != None:
+        handler_input.attributes_manager.session_attributes[cityA_Key] = cityA
+
+    if cityB_Key in handler_input.attributes_manager.session_attributes:
+        TRAVEL_DATA["cityB"] = handler_input.attributes_manager.session_attributes[
+            cityB_Key]
+        speech = "Great!, you want to go to {}".format(handler_input.attributes_manager.session_attributes[
+            cityB_Key])
+        # handler_input.response_builder.set_should_end_session(True)
     else:
-        speech = "I don't think I know your favorite color. " + help_text
+        speech = "Where did you say you wanted to go? " + help_text
         handler_input.response_builder.ask(help_text)
 
-    handler_input.response_builder.speak(speech)
+    # if handler_input.response_builder.speak(speech):
     return handler_input.response_builder.response
-    handler_input.response_builder.speak(speech)
 
-    return handler_input.response_builder.response
 
 
 # FIXME:
 # Handle specifyFromDestination
-@sb.request_handler(can_handle_func=is_intent_name("specifyFromDestination"))
+@sb.request_handler(can_handle_func=is_intent_name("specifyCityAIntent"))
 def specifyFromDestinationHandler(handler_input):
     pass
 
 # FIXME:
 # Handle specifyDate
-@sb.request_handler(can_handle_func=is_intent_name("specifyDate"))
+@sb.request_handler(can_handle_func=is_intent_name("specifyDateIntent"))
 def specifyDateHandler(handler_input):
     pass
 
@@ -102,30 +110,6 @@ def session_ended_request_handler(handler_input):
     return handler_input.response_builder.response
 
 
-@sb.request_handler(can_handle_func=is_intent_name("WhatsMyColorIntent"))
-def whats_my_color_handler(handler_input):
-    """Check if a favorite color has already been recorded in
-    session attributes. If yes, provide the color to the user.
-    If not, ask for favorite color.
-    """
-<<<<<<< HEAD
-    if color_slot_key in handler_input.attributes_manager.session_attributes:
-=======
-    # type: (HandlerInput) -> Response
-    if location_slot_key in handler_input.attributes_manager.session_attributes:
->>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
-        fav_color = handler_input.attributes_manager.session_attributes[
-            location_slot_key]
-        speech = "Your favorite color is {}. Goodbye!!".format(fav_color)
-        handler_input.response_builder.set_should_end_session(True)
-    else:
-        speech = "I don't think I know your favorite color. " + help_text
-        handler_input.response_builder.ask(help_text)
-
-    handler_input.response_builder.speak(speech)
-    return handler_input.response_builder.response
-
-
 @sb.request_handler(can_handle_func=is_intent_name("LocationIntent"))
 def location_handler(handler_input):
     """Check if color is provided in slot values. If provided, then
@@ -135,16 +119,16 @@ def location_handler(handler_input):
     slots = handler_input.request_envelope.request.intent.slots
 
 
-    if from_location_slot in slots:
-        fromLocation = slots[from_location_slot].value
+    if cityAslot in slots:
+        cityA = slots[cityAslot].value
         handler_input.attributes_manager.session_attributes[
-            location_slot_key] = fromLocation
-    if to_location_slot in slots:
-        toLocation = slots[to_location_slot].value
+            location_slot_key] = cityA
+    if cityBslot in slots:
+        cityB = slots[cityBslot].value
         handler_input.attributes_manager.session_attributes[
-            location_slot_key] = toLocation
+            location_slot_key] = cityB
         speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
-                  .format(fromLocation, toLocation))
+                  .format(cityA, cityB))
         reprompt = ("Where will you be traveling to?")
     else:
         speech = "I'm not sure what your departing city is. Try again."
@@ -182,15 +166,6 @@ def date_handler(handler_input):
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
-
-
-
-
-class CompletedPetMatchIntent(AbstractRequestHandler):
-    def handle(self, handler_input):
-        if fromDate == 
-        return handler_input.response_builder.speak(speech).response
-
 
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.FallbackIntent"))
@@ -254,6 +229,26 @@ def all_exception_handler(handler_input, exception):
 
     return handler_input.response_builder.response
 
+@sb.request_handler(can_handle_func=is_intent_name("FlightMatchIntent"))
+def flightMatchHandler(handler_input):
+    cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
+    cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
+
+    print(cityA)
+    print(cityB)
+
+    if cityA.lower() == "chicago":
+        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(FlightPriceList[0])
+    elif cityA.lower() == "los angeles":
+        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+            FlightPriceList[1])
+    elif cityA.lower() == "houston":
+        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+            FlightPriceList[2])
+    else:
+        speech = "Sorry. Currently there are no available flights for the provided specifications."
+    
+    return handler_input.response_builder.speak(speech).response
 
 ######## Convert SSML to Card text ############
 # This is for automatic conversion of ssml to text content on simple card
