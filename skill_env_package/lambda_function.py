@@ -14,12 +14,23 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_core.dispatch_components import (
     AbstractRequestHandler, AbstractExceptionHandler,
     AbstractResponseInterceptor, AbstractRequestInterceptor)
+from ask_sdk_core.dispatch_components import (
+    AbstractRequestHandler, AbstractExceptionHandler,
+    AbstractResponseInterceptor, AbstractRequestInterceptor)
+from ask_sdk_core.utils import is_intent_name, is_request_type
+from typing import Union, Dict, Any, List
+from ask_sdk_model.dialog import (
+    ElicitSlotDirective, DelegateDirective)
+from ask_sdk_model import (
+    Response, IntentRequest, DialogState, SlotConfirmationStatus, Slot)
+from ask_sdk_model.slu.entityresolution import StatusCode
 
 
 skill_name = "Travel Bud"
 help_text = ("Please tell me the city you are departing from and arriving to")
 
-cityB_Key = "LOCATION"
+cityB_Key = "CityB"
+cityA_Key = "CityA"
 cityAslot = "cityA"
 cityBslot = "cityB"
 
@@ -31,7 +42,12 @@ sb = SkillBuilder()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
+fromDate = ""
+toDate = ""
+fromLocation = ""
+toLocation = ""
+
+FlightPriceList = [["$512", "$500", "$613"], ["$772", "$812", "$830"], ["$601", "$612", "$700"], ["$430", "$445", "$450"]] #[Chicago - Miami, Los Angeles -
                                                                                         # New York, Houston - San Francisco, Any location not identified]
 
 
@@ -49,25 +65,18 @@ def launch_request_handler(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name("specifyCityBIntent"))
 def specifycityBIntentHandler(handler_input):
     # slots = handler_input.request_envelope.request.intent.slots[0]
-    cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
+    # cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
 
-    if cityB != None:
+    if cityB is not None:
         handler_input.attributes_manager.session_attributes[cityB_Key] = cityB
     
-    if cityA != None:
-        handler_input.attributes_manager.session_attributes[cityA_Key] = cityA
-
     if cityB_Key in handler_input.attributes_manager.session_attributes:
-        TRAVEL_DATA["cityB"] = handler_input.attributes_manager.session_attributes[
-            cityB_Key]
-        speech = "Great!, you want to go to {}".format(handler_input.attributes_manager.session_attributes[
+        TRAVEL_DATA["cityB"] = cityB
+        speech = "Great!, you want to go to {}!\nI don't think you told me where you're departing from.".format(handler_input.attributes_manager.session_attributes[
             cityB_Key])
         # handler_input.response_builder.set_should_end_session(True)
-    else:
-        speech = "Where did you say you wanted to go? " + help_text
-        handler_input.response_builder.ask(help_text)
-
+    handler_input.response_builder(speech).reprompt("Let me know what city you'd like to leave from.")
     # if handler_input.response_builder.speak(speech):
     return handler_input.response_builder.response
 
@@ -120,11 +129,11 @@ def location_handler(handler_input):
 
 
     if cityAslot in slots:
-        cityA = slots[cityAslot].value
+        cityA = slots["cityA"].value
         handler_input.attributes_manager.session_attributes[
             location_slot_key] = cityA
     if cityBslot in slots:
-        cityB = slots[cityBslot].value
+        cityB = slots["cityB"].value
         handler_input.attributes_manager.session_attributes[
             location_slot_key] = cityB
         speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
@@ -238,12 +247,12 @@ def flightMatchHandler(handler_input):
     print(cityB)
 
     if cityA.lower() == "chicago":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(FlightPriceList[0])
+        speech = "The three cheapest available prices for your your trip from {} to {} ".format(cityA, cityB) + ', '.join(FlightPriceList[0])
     elif cityA.lower() == "los angeles":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+        speech = "The three cheapest available prices for your your trip from {} to {} ".format(cityA, cityB) + ', '.join(
             FlightPriceList[1])
     elif cityA.lower() == "houston":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+        speech = "The three cheapest available prices for your your trip from {} to {} ".format(cityA, cityB) + ' , '.join(
             FlightPriceList[2])
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
