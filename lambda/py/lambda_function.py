@@ -14,6 +14,16 @@ from ask_sdk_model.ui import SimpleCard
 from ask_sdk_core.dispatch_components import (
     AbstractRequestHandler, AbstractExceptionHandler,
     AbstractResponseInterceptor, AbstractRequestInterceptor)
+from ask_sdk_core.dispatch_components import (
+    AbstractRequestHandler, AbstractExceptionHandler,
+    AbstractResponseInterceptor, AbstractRequestInterceptor)
+from ask_sdk_core.utils import is_intent_name, is_request_type
+from typing import Union, Dict, Any, List
+from ask_sdk_model.dialog import (
+    ElicitSlotDirective, DelegateDirective)
+from ask_sdk_model import (
+    Response, IntentRequest, DialogState, SlotConfirmationStatus, Slot)
+from ask_sdk_model.slu.entityresolution import StatusCode
 
 
 skill_name = "Travel Bud"
@@ -30,6 +40,11 @@ sb = SkillBuilder()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+fromDate = ""
+toDate = ""
+fromLocation = ""
+toLocation = ""
 
 FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
                                                                                         # New York, Houston - San Francisco, Any location not identified]
@@ -154,9 +169,24 @@ def date_handler(handler_input):
 
 
 
-class CompletedPetMatchIntent(AbstractRequestHandler):
+class CompletedFlightMatchIntent(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return (is_intent_name("FlightMatchIntent")(handler_input)
+            and handler_input.request_envelope.request.dialog_state == DialogState.COMPLETED)
+
     def handle(self, handler_input):
-        if fromDate == 
+        if fromLocation == "Chicago":
+            speech = "The three cheapest available prices for your specified requirements are", ', '.join(FlightPriceList[0])
+        elif fromLocation == "Los Angeles":
+            speech = "The three cheapest available prices for your specified requirements are", ', '.join(
+                FlightPriceList[1])
+        elif fromLocation == "Houston":
+            speech = "The three cheapest available prices for your specified requirements are", ', '.join(
+                FlightPriceList[2])
+        else:
+            speech = "Sorry. Currently there are no available flights for the provided specifications."
+        
         return handler_input.response_builder.speak(speech).response
 
 
