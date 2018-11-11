@@ -16,18 +16,6 @@ from ask_sdk_core.dispatch_components import (
     AbstractResponseInterceptor, AbstractRequestInterceptor)
 
 
-<<<<<<< HEAD
-skill_name = "travel bud"
-help_text = ("To proceed, tell me where you want to go. For example, you could tell me to find flights to Miami.")
-
-color_slot_key = "COLOR"
-color_slot = "Color"
-TRAVEL_DATA = {"toLocation": None,
-               "fromLocation": None,
-               "departureDate": None,}
-toLocationKey = ""
-toLocationSlot = ""
-=======
 skill_name = "Travel Bud"
 help_text = ("Please tell me the city you are departing from and arriving to")
 
@@ -38,7 +26,6 @@ to_location_slot = "toLocation"
 from_date_slot = "fromDate"
 to_date_slot = "toDate"
 
->>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
 sb = SkillBuilder()
 
 logger = logging.getLogger(__name__)
