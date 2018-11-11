@@ -216,7 +216,7 @@ def flightMatchHandler(handler_input):
 
     if cityA.lower() == "chicago":
         # print("1")
-        speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[0][i] + " with " + AirlineList[random.randint(0, len(AirlineList) - 1)] for i in range(3)])
+        speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[0][i] + " with " + random.choice(AirlineList) for i in range(3)])
     elif cityA.lower() == "los angeles":
         # print("2")
         speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[1][i] + " with " + random.choice(AirlineList) for i in range(3)])
@@ -229,7 +229,7 @@ def flightMatchHandler(handler_input):
         
     else:
         # print("5")
-        speech = "Sorry. Currently there are no available flights for the provided specifications."
+        speech = "Sorry. I couldn't find a flight for that date."
     
     return handler_input.response_builder.speak(speech).response
 
