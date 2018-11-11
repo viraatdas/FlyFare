@@ -24,6 +24,8 @@ from ask_sdk_model.dialog import (
 from ask_sdk_model import (
     Response, IntentRequest, DialogState, SlotConfirmationStatus, Slot)
 from ask_sdk_model.slu.entityresolution import StatusCode
+import boto3
+from botocore.exceptions import ClientError
 import random
 
 
@@ -241,6 +243,93 @@ def all_exception_handler(handler_input, exception):
 
     return handler_input.response_builder.response
 
+
+def add_speech(speech):
+    new_speech = speech + " Would you like me to send you an with the link"
+
+    return new_speech
+
+def email(recipient):
+    # This address must be verified with Amazon SES.
+    SENDER = "viraat.laldas@gmail.com"
+
+    # Replace recipient@example.com with a "To" address. If your account
+    # is still in the sandbox, this address must be verified.
+    RECIPIENT = recipient
+
+    # Specify a configuration set. If you do not want to use a configuration
+    # set, comment the following variable, and the
+    # ConfigurationSetName=CONFIGURATION_SET
+    CONFIGURATION_SET = "/Users/owner/.aws/credentials"
+
+    # If necessary, replace us-west-2 with the AWS Region you're using for Amazon SES.
+    AWS_REGION = "us-west-2"
+
+    # The subject line for the email.
+    SUBJECT = "Amazon SES Test (SDK for Python)"
+
+    # The email body for recipients with non-HTML email clients.
+    BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+                 "This email was sent with Amazon SES using the "
+                 "AWS SDK for Python (Boto)."
+                 )
+
+    # The HTML body of the email.
+    BODY_HTML = """<html>
+    <head></head>
+    <body>
+      <h1>Amazon SES Test (SDK for Python)</h1>
+      <p>This email was sent with
+        <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
+        <a href='https://aws.amazon.com/sdk-for-python/'>
+          AWS SDK for Python (Boto)</a>.</p>
+    </body>
+    </html>
+                """
+
+    # The character encoding for the email.
+    CHARSET = "UTF-8"
+
+    # Create a new SES resource and specify a region.
+    client = boto3.client('ses', region_name=AWS_REGION)
+
+    # Try to send the email.
+    try:
+        # Provide the contents of the email.
+        response = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': CHARSET,
+                        'Data': BODY_HTML,
+                    },
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': BODY_TEXT,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': SUBJECT,
+                },
+            },
+            Source=SENDER,
+            # If you are not using a configuration set, comment or delete the
+            # following line
+            # ConfigurationSetName=CONFIGURATION_SET,
+        )
+    # Display an error if something goes wrong.
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
+
 @sb.request_handler(can_handle_func=is_intent_name("FlightMatchIntent"))
 def flightMatchHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
@@ -253,19 +342,35 @@ def flightMatchHandler(handler_input):
     if cityA.lower() == "chicago":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', ' \
             .join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        speech += add_speech(speech)
+
     elif cityA.lower() == "los angeles":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB,
             date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        speech += add_speech(speech)
     elif cityA.lower() == "houston":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        speech += add_speech(speech)
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
-    
+
+
     return handler_input.response_builder.speak(speech).response
 
+@sb.request_handler(can_handle_func=is_intent_name("FlightMatchIntent"))
+def emailHandler(handler_input):
+    recipient = "viraat.laldas@gmail.com"
+    speech = ""
+    response = handler_input.request_envelope.request.intent.slots["response"].value
+    if (response == "Yes"):
+        speech += " I will go ahead and send it to you."
+        email("viraat.laldas@gmail.com")
+    else:
+        speech = " Ok. I won't send it to you."
+    return handler_input.response_builder.speak(speech).response
 
 @sb.request_handler(can_handle_func=is_intent_name("PredictBestPrice"))
-def flightMatchHandler(handler_input):
+def predictMatchHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
     date = ["November 20, 2018", "December 1, 2018", "December 3, 2018", "December 10, 2018"]
