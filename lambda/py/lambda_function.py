@@ -190,10 +190,8 @@ def fallback_handler(handler_input):
     # type: (HandlerInput) -> Response
     speech = (
         "The {} skill can't help you with that.  "
-        "You can tell me your favorite color by saying, "
-        "my favorite color is red").format(skill_name)
-    reprompt = ("You can tell me your favorite color by saying, "
-                "my favorite color is red")
+        "Tell me where and when you will be flying").format(skill_name)
+    reprompt = ("Tell me where and when you will be flying")
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
 
@@ -246,17 +244,18 @@ def all_exception_handler(handler_input, exception):
 def flightMatchHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
+    date = handler_input.request_envelope.request.intent.slots["date"].value
 
     print(cityA)
     print(cityB)
 
     if cityA.lower() == "chicago":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(FlightPriceList[0])
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(FlightPriceList[0])
     elif cityA.lower() == "los angeles":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
             FlightPriceList[1])
     elif cityA.lower() == "houston":
-        speech = "The three cheapest available prices for your your trip from {} to {}".format(cityA, cityB), ', '.join(
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
             FlightPriceList[2])
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
