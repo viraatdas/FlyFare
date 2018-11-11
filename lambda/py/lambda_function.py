@@ -13,13 +13,16 @@ from ask_sdk_model import Response
 from ask_sdk_model.ui import SimpleCard
 
 
-skill_name = "My Color Session"
-help_text = ("Please tell me your favorite color. You can say "
-             "my favorite color is red")
+skill_name = "travel bud"
+help_text = ("To proceed, tell me where you want to go. For example, you could tell me to find flights to Miami.")
 
 color_slot_key = "COLOR"
 color_slot = "Color"
-
+TRAVEL_DATA = {"toLocation": None,
+               "fromLocation": None,
+               "departureDate": None,}
+toLocationKey = ""
+toLocationSlot = ""
 sb = SkillBuilder()
 
 logger = logging.getLogger(__name__)
@@ -29,18 +32,49 @@ logger.setLevel(logging.INFO)
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
     """Handler for Skill Launch."""
-    # type: (HandlerInput) -> Response
-    speech = "Welcome to Travel Bud."
 
+    speech = "Welcome to Travel Bud."
     handler_input.response_builder.speak(
         speech + " " + help_text).ask(help_text)
     return handler_input.response_builder.response
+
+# FIXME:
+# Handle specifyToLocation
+@sb.request_handler(can_handle_func=is_intent_name("specifyToLocationIntent"))
+def specifyToLocationIntentHandler(handler_input):
+    # slots = handler_input.request_envelope.request.intent.slots[0]
+    if toLocationKey in handler_input.attributes_manager.session_attributes:
+        TRAVEL_DATA["toLocation"] = handler_input.attributes_manager.session_attributes[
+            toLocationKey]
+        speech = "Your favorite color is {}. Goodbye!!".format(fav_color)
+        handler_input.response_builder.set_should_end_session(True)
+    else:
+        speech = "I don't think I know your favorite color. " + help_text
+        handler_input.response_builder.ask(help_text)
+
+    handler_input.response_builder.speak(speech)
+    return handler_input.response_builder.response
+    handler_input.response_builder.speak(speech)
+
+    return handler_input.response_builder.response
+
+
+# FIXME:
+# Handle specifyFromDestination
+@sb.request_handler(can_handle_func=is_intent_name("specifyFromDestination"))
+def specifyFromDestinationHandler(handler_input):
+    pass
+
+# FIXME:
+# Handle specifyDate
+@sb.request_handler(can_handle_func=is_intent_name("specifyDate"))
+def specifyDateHandler(handler_input):
+    pass
 
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
 def help_intent_handler(handler_input):
     """Handler for Help Intent."""
-    # type: (HandlerInput) -> Response
     handler_input.response_builder.speak(help_text).ask(help_text)
     return handler_input.response_builder.response
 
@@ -51,7 +85,6 @@ def help_intent_handler(handler_input):
         is_intent_name("AMAZON.StopIntent")(handler_input))
 def cancel_and_stop_intent_handler(handler_input):
     """Single handler for Cancel and Stop Intent."""
-    # type: (HandlerInput) -> Response
     speech_text = "Goodbye!"
 
     return handler_input.response_builder.speak(speech_text).response
@@ -60,7 +93,6 @@ def cancel_and_stop_intent_handler(handler_input):
 @sb.request_handler(can_handle_func=is_request_type("SessionEndedRequest"))
 def session_ended_request_handler(handler_input):
     """Handler for Session End."""
-    # type: (HandlerInput) -> Response
     return handler_input.response_builder.response
 
 
@@ -70,7 +102,6 @@ def whats_my_color_handler(handler_input):
     session attributes. If yes, provide the color to the user.
     If not, ask for favorite color.
     """
-    # type: (HandlerInput) -> Response
     if color_slot_key in handler_input.attributes_manager.session_attributes:
         fav_color = handler_input.attributes_manager.session_attributes[
             color_slot_key]
@@ -90,7 +121,6 @@ def my_color_handler(handler_input):
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
     """
-    # type: (HandlerInput) -> Response
     slots = handler_input.request_envelope.request.intent.slots
 
     if color_slot in slots:

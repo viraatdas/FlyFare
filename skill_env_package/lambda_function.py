@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # This is a Color Picker Alexa Skill.
-# The skill serves as a simple sample on how to use
+# The skill serves as a simple sample on how to use  
 # session attributes.
 
 import logging
@@ -13,15 +13,14 @@ from ask_sdk_model import Response
 from ask_sdk_model.ui import SimpleCard
 
 
-skill_name = "Travel Bud"
-help_text = ("Please tell me the city you are departing from and arriving to")
+skill_name = "travel bud"
+help_text = ("To proceed, tell me where you want to go. For example, you could tell me to find flights to Miami.")
 
-location_slot_key = "LOCATION"
-from_location_slot = "fromLocation"
-to_location_slot = "toLocation"
-
-from_date_slot = "fromDate"
-to_date_slot = "toDate"
+color_slot_key = "COLOR"
+color_slot = "Color"
+TRAVEL_DATA = {"toLocation": None,
+               "fromLocation": None,
+               "departureDate": None,}
 
 sb = SkillBuilder()
 
@@ -32,18 +31,38 @@ logger.setLevel(logging.INFO)
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
     """Handler for Skill Launch."""
-    # type: (HandlerInput) -> Response
-    speech = "Welcome to Travel Bud."
 
+    speech = "Welcome to Travel Bud."
     handler_input.response_builder.speak(
         speech + " " + help_text).ask(help_text)
     return handler_input.response_builder.response
+
+# Handle specifyToLocation
+@sb.request_handler(can_handle_func=is_intent_name("specifyToLocationIntent"))
+def specifyToLocationIntentHandler(handler_input):
+    # slots = handler_input.request_envelope.request.intent.slots[0]
+    speech = "Got it!"
+
+    handler_input.response_builder.speak(speech).reprompt("Help meeeeeee")
+
+    return handler_input.response_builder.response
+
+
+
+# Handle specifyFromDestination
+@sb.request_handler(can_handle_func=is_intent_name("specifyFromDestination"))
+def specifyFromDestinationHandler(handler_input):
+    pass
+
+# Handle specifyDate
+@sb.request_handler(can_handle_func=is_intent_name("specifyDate"))
+def specifyDateHandler(handler_input):
+    pass
 
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
 def help_intent_handler(handler_input):
     """Handler for Help Intent."""
-    # type: (HandlerInput) -> Response
     handler_input.response_builder.speak(help_text).ask(help_text)
     return handler_input.response_builder.response
 
@@ -54,7 +73,6 @@ def help_intent_handler(handler_input):
         is_intent_name("AMAZON.StopIntent")(handler_input))
 def cancel_and_stop_intent_handler(handler_input):
     """Single handler for Cancel and Stop Intent."""
-    # type: (HandlerInput) -> Response
     speech_text = "Goodbye!"
 
     return handler_input.response_builder.speak(speech_text).response
@@ -63,7 +81,6 @@ def cancel_and_stop_intent_handler(handler_input):
 @sb.request_handler(can_handle_func=is_request_type("SessionEndedRequest"))
 def session_ended_request_handler(handler_input):
     """Handler for Session End."""
-    # type: (HandlerInput) -> Response
     return handler_input.response_builder.response
 
 
@@ -73,10 +90,9 @@ def whats_my_color_handler(handler_input):
     session attributes. If yes, provide the color to the user.
     If not, ask for favorite color.
     """
-    # type: (HandlerInput) -> Response
-    if location_slot_key in handler_input.attributes_manager.session_attributes:
+    if color_slot_key in handler_input.attributes_manager.session_attributes:
         fav_color = handler_input.attributes_manager.session_attributes[
-            location_slot_key]
+            color_slot_key]
         speech = "Your favorite color is {}. Goodbye!!".format(fav_color)
         handler_input.response_builder.set_should_end_session(True)
     else:
@@ -87,64 +103,31 @@ def whats_my_color_handler(handler_input):
     return handler_input.response_builder.response
 
 
-@sb.request_handler(can_handle_func=is_intent_name("LocationIntent"))
-def from_location_handler(handler_input):
+@sb.request_handler(can_handle_func=is_intent_name("MyColorIsIntent"))
+def my_color_handler(handler_input):
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
     """
-    # type: (HandlerInput) -> Response
     slots = handler_input.request_envelope.request.intent.slots
 
-
-    if from_location_slot in slots:
-        fromLocation = slots[from_location_slot].value
+    if color_slot in slots:
+        fav_color = slots[color_slot].value
         handler_input.attributes_manager.session_attributes[
-            location_slot_key] = fromLocation
-    if to_location_slot in slots:
-        toLocation = slots[to_location_slot].value
-        handler_input.attributes_manager.session_attributes[
-            location_slot_key] = toLocation
-        speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
-                  .format(fromLocation, toLocation))
-        reprompt = ("Where will you be traveling to?")
+            color_slot_key] = fav_color
+        speech = ("Now I know that your favorite color is {}. "
+                  "You can ask me your favorite color by saying, "
+                  "what's my favorite color ?".format(fav_color))
+        reprompt = ("You can ask me your favorite color by saying, "
+                    "what's my favorite color ?")
     else:
-        speech = "I'm not sure what your departing city is. Try again."
-        reprompt = ("I'm not sure what your departing city is. "
-                    "You can tell me your departing and arriving city by saying, "
-                    "I'm traveling from Chicago to Miami")
+        speech = "I'm not sure what your favorite color is, please try again"
+        reprompt = ("I'm not sure what your favorite color is. "
+                    "You can tell me your favorite color by saying, "
+                    "my favorite color is red")
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
-
-
-
-@sb.request_handler(can_handle_func=is_intent_name("DateIntent"))
-def from_location_handler(handler_input):
-    """Check if color is provided in slot values. If provided, then
-    set your favorite color from slot value into session attributes.
-    If not, then it asks user to provide the color.
-    """
-    # type: (HandlerInput) -> Response
-    slots = handler_input.request_envelope.request.intent.slots
-
-    if from_date_slot in slots:
-        fromDate = slots[from_date_slot].value
-        handler_input.attributes_manager.session_attributes[
-            location_slot_key] = fromDate
-        if to_date_slot in slots:
-            toDate = slots[from_date_slot].value
-            handler_input.attributes_manager.session_attributes[
-                location_slot_key] = toDate
-        speech = ("The date you will be leaving is {} and arriving is {}.".format(fromDate, toDate))
-        reprompt = ("What date will you be arriving?")
-    else:
-        speech = "I'm not sure what your arriving date is. Try again."
-        reprompt = ("What date will you be arriving?")
-
-    handler_input.response_builder.speak(speech).ask(reprompt)
-    return handler_input.response_builder.response
-
 
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.FallbackIntent"))
@@ -240,4 +223,3 @@ class SSMLStripper(HTMLParser):
 
 # Handler to be provided in lambda console.
 lambda_handler = sb.lambda_handler()
-
