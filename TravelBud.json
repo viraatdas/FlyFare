@@ -146,10 +146,6 @@
                         {
                             "name": "cityA",
                             "type": "AMAZON.US_CITY"
-                        },
-                        {
-                            "name": "date",
-                            "type": "AMAZON.DATE"
                         }
                     ],
                     "samples": [

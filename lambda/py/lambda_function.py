@@ -275,7 +275,6 @@ def flightMatchHandler(handler_input):
              "cheapest travel".format(cityA, cityB,date[random.randint(0, len(date))])
     speech += " The three listed cheap price is {} ".format(', '.join(FlightPriceList[random.randint(0, len(FlightPriceList))]))
 
-
     return handler_input.response_builder.speak(speech).response
 
 ######## Convert SSML to Card text ############
