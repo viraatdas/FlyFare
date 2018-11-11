@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
-                                                                                        # New York, Houston - San Francisco, Any location not identified ]
+                                                                                        # New York, Houston - San Francisco, Any location not identified]
 
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
@@ -91,7 +91,7 @@ def whats_my_color_handler(handler_input):
 
 
 @sb.request_handler(can_handle_func=is_intent_name("LocationIntent"))
-def from_location_handler(handler_input):
+def location_handler(handler_input):
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
@@ -123,7 +123,7 @@ def from_location_handler(handler_input):
 
 
 @sb.request_handler(can_handle_func=is_intent_name("DateIntent"))
-def from_location_handler(handler_input):
+def date_handler(handler_input):
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
@@ -147,6 +147,55 @@ def from_location_handler(handler_input):
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
+
+
+
+
+class CompletedPetMatchIntent(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return (is_intent_name("PetMatchIntent")(handler_input)
+            and handler_input.request_envelope.request.dialog_state == DialogState.COMPLETED)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        logger.info("In CompletedPetMatchIntent")
+        filled_slots = handler_input.request_envelope.request.intent.slots
+        slot_values = get_slot_values(filled_slots)
+        pet_match_options = build_pet_match_options(
+            host_name=pet_match_api["host_name"], path=pet_match_api["pets"],
+            port=pet_match_api["port"], slot_values=slot_values)
+
+        try:
+            response = http_get(pet_match_options)
+
+            if response["result"]:
+                speech = ("So a {} "
+                          "{} "
+                          "{} "
+                          "energy dog sounds good for you. Consider a "
+                          "{}".format(
+                    slot_values["size"]["resolved"],
+                    slot_values["temperament"]["resolved"],
+                    slot_values["energy"]["resolved"],
+                    response["result"][0]["breed"])
+                )
+            else:
+                speech = ("I am sorry I could not find a match for a "
+                          "{} "
+                          "{} "
+                          "{} energy dog".format(
+                    slot_values["size"]["resolved"],
+                    slot_values["temperament"]["resolved"],
+                    slot_values["energy"]["resolved"])
+                )
+        except Exception as e:
+            speech = ("I am really sorry. I am unable to access part of my "
+                      "memory. Please try again later")
+            logger.info("Intent: {}: message: {}".format(
+                handler_input.request_envelope.request.intent.name, str(e)))
+
+        return handler_input.response_builder.speak(speech).response
 
 
 
