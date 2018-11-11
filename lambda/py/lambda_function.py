@@ -332,6 +332,10 @@ def flightMatchHandler(handler_input):
     else:
         # print("5")
         speech = "Sorry. I couldn't find a flight for that date."
+    # if (checkIfWantEmail):
+
+    #     response = handler_input.request_envelope.request.intent.slot["response"].value
+    #     sp
     
     return handler_input.response_builder.speak(speech).response
 
