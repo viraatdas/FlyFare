@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="765e3ff5-f669-4c21-bf40-f5050a1f20f7" name="Default Changelist" comment="">
+<<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skill_env1/colorpicker.json" beforeDir="false" afterPath="$PROJECT_DIR$/skill_env1/colorpicker.json" afterDir="false" />
+=======
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
+      <change beforePath="$PROJECT_DIR$/skill_env1/lambda_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/skill_env1/lambda_function.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/lambda/py/lambda_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/lambda/py/lambda_function.py" afterDir="false" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
+>>>>>>> 0fa1b088cbe96682f135e91aef2d8ee1eefaaea4
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,37 +30,73 @@
     <session id="1153673660">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+<<<<<<< HEAD
+          <entry key="json" value="5" />
+          <entry key="py" value="7" />
+=======
           <entry key="json" value="1" />
           <entry key="py" value="5" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
           <entry key="txt" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JSON" value="1" />
+          <entry key="JSON" value="5" />
           <entry key="PLAIN_TEXT" value="3" />
+<<<<<<< HEAD
+          <entry key="Python" value="7" />
+=======
           <entry key="Python" value="5" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="44" />
+<<<<<<< HEAD
+          <entry key="json" value="375" />
+          <entry key="py" value="1799" />
+=======
           <entry key="json" value="215" />
+<<<<<<< HEAD
           <entry key="py" value="1643" />
+=======
+<<<<<<< HEAD
+          <entry key="py" value="1150" />
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
+=======
+          <entry key="py" value="1641" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
+>>>>>>> 0fa1b088cbe96682f135e91aef2d8ee1eefaaea4
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+<<<<<<< HEAD
+          <entry key="JSON" value="375" />
+          <entry key="Python" value="1843" />
+=======
           <entry key="JSON" value="215" />
+<<<<<<< HEAD
           <entry key="Python" value="1687" />
+=======
+<<<<<<< HEAD
+          <entry key="Python" value="1194" />
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
+=======
+          <entry key="Python" value="1685" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
+>>>>>>> 0fa1b088cbe96682f135e91aef2d8ee1eefaaea4
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -56,6 +105,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/py/flight_backend.py">
+<<<<<<< HEAD
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/skill_env1/lambda_function.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="492">
+              <caret line="92" column="66" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="66" />
+              <folding>
+                <element signature="e#140#154#0" expanded="true" />
+              </folding>
+=======
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skill_env1/colorpicker.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skill_env1/CheapFlight.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="654">
+              <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skill_env1/PetMatch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-76">
+              <caret line="36" column="45" lean-forward="true" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+              <folding>
+                <element signature="e#25#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skill_env1/PetMatch.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-553">
+              <caret line="99" column="29" lean-forward="true" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/skill_env1/ExampleInput.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+=======
+=======
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lambda/py/lambda_function.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,6 +189,7 @@
               <folding>
                 <element signature="e#138#152#0" expanded="true" />
               </folding>
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
             </state>
           </provider>
         </entry>
@@ -81,9 +207,17 @@
       <find>frontie</find>
       <find>{}</find>
       <find>locatio</find>
+<<<<<<< HEAD
+      <find>COLOR</find>
+      <find>slot</find>
+=======
       <find>class</find>
       <find>new york</find>
+<<<<<<< HEAD
       <find>class</find>
+=======
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
+>>>>>>> 0fa1b088cbe96682f135e91aef2d8ee1eefaaea4
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -96,6 +230,15 @@
         <option value="$PROJECT_DIR$/scrape.py" />
         <option value="$PROJECT_DIR$/TravelBud.json" />
         <option value="$PROJECT_DIR$/flight_backend.py" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/py/flight_backend.py" />
+        <option value="$PROJECT_DIR$/skill_env1/PetMatch.py" />
+        <option value="$PROJECT_DIR$/skill_env1/PetMatch.json" />
+        <option value="$PROJECT_DIR$/skill_env1/ExampleInput.json" />
+        <option value="$PROJECT_DIR$/skill_env1/CheapFlight.json" />
+        <option value="$PROJECT_DIR$/skill_env1/colorpicker.json" />
+=======
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
         <option value="$PROJECT_DIR$/skill_env1/lambda_function.py" />
         <option value="$PROJECT_DIR$/lambda/py/lambda_function.py" />
       </list>
@@ -107,10 +250,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="812" />
+    <option name="height" value="823" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -216,7 +359,11 @@
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.13304721" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.32968536" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.32739726" />
+>>>>>>> 0fa1b088cbe96682f135e91aef2d8ee1eefaaea4
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="4" weight="0.32872927" />
@@ -254,16 +401,32 @@
     <entry file="file://$PROJECT_DIR$/scrape.py" />
     <entry file="file://$PROJECT_DIR$/TravelBud.json" />
     <entry file="file://$PROJECT_DIR$/flight_backend.py" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/skill_env1/PetMatch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="36" column="45" lean-forward="true" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+          <folding>
+            <element signature="e#25#39#0" expanded="true" />
+=======
     <entry file="file://$PROJECT_DIR$/skill_env1/lambda_function.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
           <caret line="92" column="20" lean-forward="true" selection-end-line="295" />
           <folding>
             <element signature="e#138#152#0" expanded="true" />
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/skill_env1/PetMatch.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-553">
+          <caret line="99" column="29" lean-forward="true" selection-start-line="99" selection-start-column="29" selection-end-line="99" selection-end-column="29" />
+=======
     <entry file="file://$PROJECT_DIR$/lambda/py/lambda_function.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="157">
@@ -271,15 +434,57 @@
           <folding>
             <element signature="e#138#152#0" expanded="true" />
           </folding>
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/py/flight_backend.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="270">
+          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skill_env1/ExampleInput.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skill_env1/CheapFlight.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="654">
+          <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skill_env1/colorpicker.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="39" column="31" lean-forward="true" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/skill_env1/lambda_function.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="92" column="66" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="66" />
+          <folding>
+            <element signature="e#140#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+=======
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
+=======
         <state relative-caret-position="195">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
+>>>>>>> 3408e6ed63b48f41f06d32255035cb30e6049d1b
   </component>
 </project>

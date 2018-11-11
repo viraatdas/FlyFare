@@ -1,0 +1,226 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "travel bud",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "Cancel"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "Assistance",
+                        "Help",
+                        "How do I use TravelBud",
+                        "Help me"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": [
+                        "Yes"
+                    ]
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": [
+                        "No"
+                    ]
+                },
+                {
+                    "name": "specifyCityBIntent",
+                    "slots": [
+                        {
+                            "name": "cityA",
+                            "type": "AMAZON.US_CITY",
+                            "samples": [
+                                "I'm leaving from {cityA}",
+                                "{cityA}"
+                            ]
+                        },
+                        {
+                            "name": "cityB",
+                            "type": "AMAZON.US_CITY",
+                            "samples": [
+                                "I'm going to {cityB}",
+                                "{cityB}"
+                            ]
+                        },
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE",
+                            "samples": [
+                                "{date}",
+                                "I want to leave on {date}",
+                                "I'm thinking of leaving on {date}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "I want to go to {cityA} to {cityB}",
+                        "find flights to {cityB} ",
+                        "find flights from to {cityB} on {date}",
+                        "tell me the cheapest flights from to {cityB} ",
+                        "what flights go to {cityB} this {date}",
+                        "tell me about flights to {cityB}",
+                        "find flights from  {cityB}",
+                        "tell me about flights to {cityB} on {date}",
+                        "I want to go to {cityB}",
+                        "flights to {cityB}"
+                    ]
+                },
+                {
+                    "name": "specifyCityAIntent",
+                    "slots": [
+                        {
+                            "name": "location",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "airport",
+                            "type": "AMAZON.Airport"
+                        }
+                    ],
+                    "samples": [
+                        "{airport}",
+                        "{location}"
+                    ]
+                },
+                {
+                    "name": "specifyDateIntent",
+                    "slots": [
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE"
+                        },
+                        {
+                            "name": "day",
+                            "type": "AMAZON.DayOfWeek"
+                        }
+                    ],
+                    "samples": [
+                        "{day}",
+                        "{date}"
+                    ]
+                },
+                {
+                    "name": "FlightMatchIntent",
+                    "slots": [
+                        {
+                            "name": "cityB",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "cityA",
+                            "type": "AMAZON.US_CITY"
+                        }
+                    ],
+                    "samples": [
+                        "I want to go from {cityA} to {cityB}",
+                        "I want to go to {cityB} from {cityA} "
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "specifyCityBIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "cityA",
+                            "type": "AMAZON.US_CITY",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.78047843882.1148599708593"
+                            }
+                        },
+                        {
+                            "name": "cityB",
+                            "type": "AMAZON.US_CITY",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.78047843882.289091997319"
+                            }
+                        },
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1008420946508.1075416656697"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Confirm.Slot.1048424906986.233603100546",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "I didn't catch that. Could you say where you'd like to go again?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1008420946508.1075416656697",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "You didn't tell me when you would like to depart.  When would you like to depart?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.78047843882.1148599708593",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Where are you departing from?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "I don't think you told me where you're coming from."
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.78047843882.289091997319",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Where did you say you were going?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "I don't think you've told me where you're going?"
+                    }
+                ]
+            }
+        ]
+    }
+}

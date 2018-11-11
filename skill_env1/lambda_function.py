@@ -29,7 +29,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
+<<<<<<< HEAD
+                                                                                        # New York, Houston - San Francisco, Any location not identified ]
+=======
                                                                                         # New York, Houston - San Francisco, Any location not identified]
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
 
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
@@ -91,7 +95,11 @@ def whats_my_color_handler(handler_input):
 
 
 @sb.request_handler(can_handle_func=is_intent_name("LocationIntent"))
+<<<<<<< HEAD
+def from_location_handler(handler_input):
+=======
 def location_handler(handler_input):
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
@@ -102,11 +110,19 @@ def location_handler(handler_input):
 
     if from_location_slot in slots:
         fromLocation = slots[from_location_slot].value
+<<<<<<< HEAD
         handler_input.attributes_manager.session_attributes[
             location_slot_key] = fromLocation
     if to_location_slot in slots:
         toLocation = slots[to_location_slot].value
         handler_input.attributes_manager.session_attributes[
+=======
+        handler_input.attributes_manager.session_attributes[
+            location_slot_key] = fromLocation
+    if to_location_slot in slots:
+        toLocation = slots[to_location_slot].value
+        handler_input.attributes_manager.session_attributes[
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
             location_slot_key] = toLocation
         speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
                   .format(fromLocation, toLocation))
@@ -123,7 +139,11 @@ def location_handler(handler_input):
 
 
 @sb.request_handler(can_handle_func=is_intent_name("DateIntent"))
+<<<<<<< HEAD
+def from_location_handler(handler_input):
+=======
 def date_handler(handler_input):
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
     """Check if color is provided in slot values. If provided, then
     set your favorite color from slot value into session attributes.
     If not, then it asks user to provide the color.
@@ -150,6 +170,8 @@ def date_handler(handler_input):
 
 
 
+<<<<<<< HEAD
+=======
 
 class CompletedPetMatchIntent(AbstractRequestHandler):
     def can_handle(self, handler_input):
@@ -199,6 +221,7 @@ class CompletedPetMatchIntent(AbstractRequestHandler):
 
 
 
+>>>>>>> 6a9d5e4d690b0b749cc53a36a9cebb3e68a71fd3
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.FallbackIntent"))
 def fallback_handler(handler_input):
     """AMAZON.FallbackIntent is only available in en-US locale.
