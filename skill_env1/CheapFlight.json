@@ -19,36 +19,19 @@
                     "name": "AMAZON.StopIntent",
                     "samples": []
                 },
-               {
-                    "name": "LocationIntent",
-                    "slots": [{
-                      "name": "fromLocation",
-                      "type": "AMAZON.location"
-                    },
-                      {
-                        "name": "toLocation",
-                        "type": "AMAZON.location"
-
-                      }
-
-                    ],
-
-                },
-
                 {
-                    "name": "DateIntent",
-                    "slots": [{
-                      "name": "fromDate",
-                      "type": "AMAZON.date"
-                    },
-                      {
-                        "name": "toDate",
-                        "type": "AMAZON.date"
-
-                      }
-
-                    ],
-
+                    "name": "WhatsMyColorIntent",
+                    "slots": [],
+                    "samples": [
+                        "tell me what is my favorite color",
+                        "whats my favorite color",
+                        "say my color",
+                        "say my favorite color",
+                        "tell me my favorite color",
+                        "what is my favorite color",
+                        "what is my color",
+                        "whats my color"
+                    ]
                 },
                 {
                     "name": "MyColorIsIntent",
