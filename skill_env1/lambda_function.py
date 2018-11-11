@@ -28,6 +28,9 @@ sb = SkillBuilder()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
+                                                                                        # New York, Houston - San Francisco, Any location not identified ]
+
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
