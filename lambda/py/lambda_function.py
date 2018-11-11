@@ -49,6 +49,8 @@ toDate = ""
 fromLocation = ""
 toLocation = ""
 
+
+
 FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
                                                                                         # New York, Houston - San Francisco, Any location not identified]
 AirlineList = ["Frontier", "Delta", "American Airlines", "United", "Spirit", "JetBlue"]
@@ -244,10 +246,6 @@ def all_exception_handler(handler_input, exception):
     return handler_input.response_builder.response
 
 
-def add_speech(speech):
-    new_speech = speech + " Would you like me to send you an with the link"
-
-    return new_speech
 
 def email(recipient):
     # This address must be verified with Amazon SES.
@@ -330,11 +328,14 @@ def email(recipient):
         print("Email sent! Message ID:"),
         print(response['MessageId'])
 
+checkIfWantEmail = False
+
 @sb.request_handler(can_handle_func=is_intent_name("FlightMatchIntent"))
 def flightMatchHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
     date = handler_input.request_envelope.request.intent.slots["date"].value
+
 
     print(cityA)
     print(cityB)
@@ -342,32 +343,34 @@ def flightMatchHandler(handler_input):
     if cityA.lower() == "chicago":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', ' \
             .join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
-        speech += add_speech(speech)
+        speech += " Would you like me to send you the information"
+        checkIfWantEmail = True
 
     elif cityA.lower() == "los angeles":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB,
             date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
-        speech += add_speech(speech)
+        speech += " Would you like me to send you the information"
+        checkIfWantEmail = True
     elif cityA.lower() == "houston":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
-        speech += add_speech(speech)
+        speech += " Would you like me to send you the information"
+        checkIfWantEmail = True
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
+    handler_input.response_builder.speak(speech)
+    if (checkIfWantEmail):
+        recipient = "viraat.laldas@gmail.com"
+        speech = ""
+        response = handler_input.request_envelope.request.intent.slots["response"].value
+        if (response == "Yes"):
+            speech += " I will go ahead and send it to you."
+            email("viraat.laldas@gmail.com")
+        else:
+            speech = " Ok. I won't send it to you."
+        
+        return handler_input.response_builder.speak(speech).response
+    return handler_input.response_builder.speak("Hope you have a good day!").response
 
-
-    return handler_input.response_builder.speak(speech).response
-
-@sb.request_handler(can_handle_func=is_intent_name("FlightMatchIntent"))
-def emailHandler(handler_input):
-    recipient = "viraat.laldas@gmail.com"
-    speech = ""
-    response = handler_input.request_envelope.request.intent.slots["response"].value
-    if (response == "Yes"):
-        speech += " I will go ahead and send it to you."
-        email("viraat.laldas@gmail.com")
-    else:
-        speech = " Ok. I won't send it to you."
-    return handler_input.response_builder.speak(speech).response
 
 @sb.request_handler(can_handle_func=is_intent_name("PredictBestPrice"))
 def predictMatchHandler(handler_input):
@@ -413,4 +416,6 @@ class SSMLStripper(HTMLParser):
 
 # Handler to be provided in lambda console.
 lambda_handler = sb.lambda_handler()
+
+
 
