@@ -24,6 +24,7 @@ from ask_sdk_model.dialog import (
 from ask_sdk_model import (
     Response, IntentRequest, DialogState, SlotConfirmationStatus, Slot)
 from ask_sdk_model.slu.entityresolution import StatusCode
+import random
 
 
 skill_name = "Travel Bud"
@@ -260,6 +261,21 @@ def flightMatchHandler(handler_input):
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
     
+    return handler_input.response_builder.speak(speech).response
+
+
+@sb.request_handler(can_handle_func=is_intent_name("PredictBestPrice"))
+def flightMatchHandler(handler_input):
+    cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
+    cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
+    date = ["November 20, 2018", "December 1, 2018", "December 3, 2018", "December 10, 2018"]
+
+
+    speech = "According to your preferences and previous flight history, you should fly to {} from {} on {} for the " \
+             "cheapest travel".format(cityA, cityB,date[random.randint(0, len(date))])
+    speech += " The three listed cheap price is {} ".format(', '.join(FlightPriceList[random.randint(0, len(FlightPriceList))]))
+
+
     return handler_input.response_builder.speak(speech).response
 
 ######## Convert SSML to Card text ############

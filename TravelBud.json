@@ -134,7 +134,31 @@
                         "I want to go from {cityA} to {cityB}",
                         "I want to go to {cityB} from {cityA} "
                     ]
+                },
+
+                {
+                    "name": "PredictBestPrice",
+                    "slots": [
+                        {
+                            "name": "cityB",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "cityA",
+                            "type": "AMAZON.US_CITY"
+                        },
+                        {
+                            "name": "date",
+                            "type": "AMAZON.DATE"
+                        }
+                    ],
+                    "samples": [
+                        "I want to go from {cityA} to {cityB}",
+                        "I want to go to {cityB} from {cityA} "
+                    ]
                 }
+
+
             ],
             "types": []
         },
