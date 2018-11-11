@@ -251,14 +251,13 @@ def flightMatchHandler(handler_input):
     print(cityB)
 
     if cityA.lower() == "chicago":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '\
-            .join(FlightPriceList[0] + " with " + AirlineList[random.randint(0, len(AirlineList))])
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', ' \
+            .join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
     elif cityA.lower() == "los angeles":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
-            FlightPriceList[1] + " with " + AirlineList[random.randint(0, len(AirlineList))])
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB,
+            date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
     elif cityA.lower() == "houston":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
-            FlightPriceList[2] + " with " + AirlineList[random.randint(0, len(AirlineList))])
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
     
