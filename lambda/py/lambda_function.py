@@ -80,7 +80,7 @@ def specifycityBIntentHandler(handler_input):
         
     if cityB_Key in handler_input.attributes_manager.session_attributes:
         TRAVEL_DATA["cityB"] = cityB
-        speech = "Great!, you want to go to {}!\nI don't think you told me where you're departing from.".format:(handler_input.attributes_manager.session_attributes[
+        speech = "Great!, you want to go to {}!\nI don't think you told me where you're departing from.".format(handler_input.attributes_manager.session_attributes[
             cityB_Key])
         # handler_input.response_builder.set_should_end_session(True)
     handler_input.response_builder(speech).reprompt("Let me know what city you'd like to leave from.")
