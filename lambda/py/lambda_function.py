@@ -49,7 +49,7 @@ toLocation = ""
 
 FlightPriceList = [["512", "500", "613"], ["772", "812", "830"], ["601", "612", "700"], ["430", "445", "450"]] #[Chicago - Miami, Los Angeles -
                                                                                         # New York, Houston - San Francisco, Any location not identified]
-
+AirlineList = ["Frontier", "Delta", "American Airlines", "United", "Spirit", "JetBlue"]
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
@@ -251,13 +251,14 @@ def flightMatchHandler(handler_input):
     print(cityB)
 
     if cityA.lower() == "chicago":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(FlightPriceList[0])
+        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '\
+            .join(FlightPriceList[0] + " with " + AirlineList[random.randint(0, len(AirlineList))])
     elif cityA.lower() == "los angeles":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
-            FlightPriceList[1])
+            FlightPriceList[1] + " with " + AirlineList[random.randint(0, len(AirlineList))])
     elif cityA.lower() == "houston":
         speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join(
-            FlightPriceList[2])
+            FlightPriceList[2] + " with " + AirlineList[random.randint(0, len(AirlineList))])
     else:
         speech = "Sorry. Currently there are no available flights for the provided specifications."
     
