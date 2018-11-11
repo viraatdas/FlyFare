@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="765e3ff5-f669-4c21-bf40-f5050a1f20f7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lambda/py/lambda_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/lambda/py/lambda_function.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,13 +41,13 @@
         <counts>
           <entry key="Python Console" value="44" />
           <entry key="json" value="215" />
-          <entry key="py" value="1641" />
+          <entry key="py" value="1643" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="215" />
-          <entry key="Python" value="1685" />
+          <entry key="Python" value="1687" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -60,8 +59,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lambda/py/lambda_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="174" column="49" selection-start-line="174" selection-start-column="49" selection-end-line="174" selection-end-column="49" />
+            <state relative-caret-position="15">
+              <caret line="165" column="63" selection-start-line="165" selection-start-column="63" selection-end-line="165" selection-end-column="63" />
               <folding>
                 <element signature="e#138#152#0" expanded="true" />
               </folding>
@@ -266,8 +265,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lambda/py/lambda_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="174" column="49" selection-start-line="174" selection-start-column="49" selection-end-line="174" selection-end-column="49" />
+        <state relative-caret-position="15">
+          <caret line="165" column="63" selection-start-line="165" selection-start-column="63" selection-end-line="165" selection-end-column="63" />
           <folding>
             <element signature="e#138#152#0" expanded="true" />
           </folding>
