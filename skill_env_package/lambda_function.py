@@ -27,8 +27,8 @@ from ask_sdk_model.slu.entityresolution import StatusCode
 import random
 
 
-skill_name = "Travel Bud"
-help_text = ("Please tell me the city you are departing from and arriving to")
+skill_name = "Fly Fare"
+help_text = "You can use Fly Fare to schedule flights and get information on the lowest prices on the market. Ask me about flights to your next travel destination! "
 
 cityB_Key = "CityB"
 cityA_Key = "CityA"
@@ -47,16 +47,19 @@ fromDate = ""
 toDate = ""
 fromLocation = ""
 toLocation = ""
-
-FlightPriceList = [["$512", "$500", "$613"], ["$772", "$812", "$830"], ["$601", "$612", "$700"], ["$430", "$445", "$450"]] #[Chicago - Miami, Los Angeles -
-                                                                                        # New York, Houston - San Francisco, Any location not identified]
+cheapest = ["most affordable", "lowest", "most economical", "most cost-effective"]
+FlightPriceList = [["$512", "$500", "$613"],
+                   ["$772", "$812", "$830"], 
+                   ["$601", "$612", "$700"], 
+                   ["$430", "$445", "$450"]] #[Chicago - Miami, Los Angeles -
+# New York, Houston - San Francisco, Any location not identified]
 AirlineList = ["Frontier", "Delta", "American Airlines", "United", "Spirit", "JetBlue"]
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
     """Handler for Skill Launch."""
 
-    speech = "Welcome to Travel Bud."
+    speech = "Welcome to {}.".format(skill_name)
     handler_input.response_builder.speak(
         speech + " " + help_text).ask(help_text)
     return handler_input.response_builder.response
@@ -94,13 +97,6 @@ def specifycityBIntentHandler(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name("specifyCityAIntent"))
 def specifyFromDestinationHandler(handler_input):
     pass
-
-# FIXME:
-# Handle specifyDate
-@sb.request_handler(can_handle_func=is_intent_name("specifyDateIntent"))
-def specifyDateHandler(handler_input):
-    pass
-
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
 def help_intent_handler(handler_input):
@@ -143,8 +139,7 @@ def location_handler(handler_input):
         cityB = slots["cityB"].value
         handler_input.attributes_manager.session_attributes[
             location_slot_key] = cityB
-        speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?"
-                  .format(cityA, cityB))
+        speech = ("The location you are traveling from is {} and going to is {}. Where will you be going to?".format(cityA, cityB))
         reprompt = ("Where will you be traveling to?")
     else:
         speech = "I'm not sure what your arrival and departure city is. Try again."
@@ -152,35 +147,6 @@ def location_handler(handler_input):
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
-
-
-
-@sb.request_handler(can_handle_func=is_intent_name("DateIntent"))
-def date_handler(handler_input):
-    """Check if color is provided in slot values. If provided, then
-    set your favorite color from slot value into session attributes.
-    If not, then it asks user to provide the color.
-    """
-    # type: (HandlerInput) -> Response
-    slots = handler_input.request_envelope.request.intent.slots
-
-    if from_date_slot in slots:
-        fromDate = slots[from_date_slot].value
-        handler_input.attributes_manager.session_attributes[
-            location_slot_key] = fromDate
-        if to_date_slot in slots:
-            toDate = slots[from_date_slot].value
-            handler_input.attributes_manager.session_attributes[
-                location_slot_key] = toDate
-        speech = ("The date you will be leaving is {} and arriving is {}.".format(fromDate, toDate))
-        reprompt = ("What date will you be arriving?")
-    else:
-        speech = "I'm not sure what your date is. Try again."
-        reprompt = ("What date will you be arriving?")
-
-    handler_input.response_builder.speak(speech).ask(reprompt)
-    return handler_input.response_builder.response
-
 
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.FallbackIntent"))
 def fallback_handler(handler_input):
@@ -245,35 +211,38 @@ def all_exception_handler(handler_input, exception):
 def flightMatchHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
-    date = handler_input.request_envelope.request.intent.slots["date"].value
+    date  = handler_input.request_envelope.request.intent.slots["date"].value
 
-    print(cityA)
-    print(cityB)
 
     if cityA.lower() == "chicago":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', ' \
-            .join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        # print("1")
+        speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[0][i] + " with " + AirlineList[random.randint(0, len(AirlineList) - 1)] for i in range(3)])
     elif cityA.lower() == "los angeles":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB,
-            date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        # print("2")
+        speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[1][i] + " with " + random.choice(AirlineList) for i in range(3)])
     elif cityA.lower() == "houston":
-        speech = "The three cheapest available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date), ', '.join([FlightPriceList[2][i] + " with " + AirlineList[random.randint(0, len(AirlineList))]] for i in range(3))
+        # print("3")
+        speech = "The three " + random.choice(cheapest) + " prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[2][i] + " with " + random.choice(AirlineList) for i in range(3)])
+    elif cityA.lower() == "princeton":
+        # print("4")
+        speech = "The three " + random.choice(cheapest) + " available prices for your your trip from {} to {} on {} ".format(cityA, cityB, date) + " are: " + ', '.join([FlightPriceList[3][i] + " with " + random.choice(AirlineList) for i in range(3)])
+        
     else:
+        # print("5")
         speech = "Sorry. Currently there are no available flights for the provided specifications."
     
     return handler_input.response_builder.speak(speech).response
 
 
 @sb.request_handler(can_handle_func=is_intent_name("PredictBestPrice"))
-def flightMatchHandler(handler_input):
+def predictBestHandler(handler_input):
     cityA = handler_input.request_envelope.request.intent.slots["cityA"].value
     cityB = handler_input.request_envelope.request.intent.slots["cityB"].value
     date = ["November 20, 2018", "December 1, 2018", "December 3, 2018", "December 10, 2018"]
 
 
-    speech = "According to your preferences and previous flight history, you should fly to {} from {} on {} for the " \
-             "cheapest travel".format(cityA, cityB,date[random.randint(0, len(date))])
-    speech += " The three listed cheap price is {} ".format(', '.join(FlightPriceList[random.randint(0, len(FlightPriceList))]))
+    speech = "According to your preferences and previous flight history, you should fly to {} from {} on {} for the cheapest travel".format(cityA, cityB,date[random.randint(0, len(date))])
+    speech += " The three most economic prices that I've found are: {} ".format(', '.join(FlightPriceList[random.randint(0, len(FlightPriceList))]))
 
     return handler_input.response_builder.speak(speech).response
 
