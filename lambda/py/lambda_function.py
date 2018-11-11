@@ -146,10 +146,8 @@ def location_handler(handler_input):
                   .format(cityA, cityB))
         reprompt = ("Where will you be traveling to?")
     else:
-        speech = "I'm not sure what your departing city is. Try again."
-        reprompt = ("I'm not sure what your departing city is. "
-                    "You can tell me your departing and arriving city by saying, "
-                    "I'm traveling from Chicago to Miami")
+        speech = "I'm not sure what your arrival and departure city is. Try again."
+        reprompt = ("Where will you be departing from and arriving to?")
 
     handler_input.response_builder.speak(speech).ask(reprompt)
     return handler_input.response_builder.response
@@ -176,7 +174,7 @@ def date_handler(handler_input):
         speech = ("The date you will be leaving is {} and arriving is {}.".format(fromDate, toDate))
         reprompt = ("What date will you be arriving?")
     else:
-        speech = "I'm not sure what your arriving date is. Try again."
+        speech = "I'm not sure what your date is. Try again."
         reprompt = ("What date will you be arriving?")
 
     handler_input.response_builder.speak(speech).ask(reprompt)
