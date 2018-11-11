@@ -335,7 +335,7 @@ def flightMatchHandler(handler_input):
     
     return handler_input.response_builder.speak(speech).response
 
-@sb.request_handler(can_handle_func=is_intent_name("AMAZON.YesIntent"))
+@sb.request_handler(can_handle_func=is_intent_name("AMAZON.AcceptEmailIntent"))
 def yesHandler(handler_input):
     speech = " I will go ahead and send it to you."
     handler_input.response_builder.speak(speech + " Hope you have a good day!")
