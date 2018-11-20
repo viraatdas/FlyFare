@@ -1,4 +1,4 @@
-# AirportCheapest
+# FlyFare
 This project was made at **HackPrinceton Fall 2018**
 
 # What does it do?
